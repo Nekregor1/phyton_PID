@@ -31,7 +31,7 @@ class PID_controller:
         err_sum= err_sum + err*dt
         #cut-off value
         if Ki!=0:
-            err_sum_cutoff=1/Ki
+            err_sum_cutoff=1/Ki*dt
         else:
             err_sum_cutoff=1
 
