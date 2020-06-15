@@ -13,23 +13,20 @@ class PID_controller:
         self.Ki = Ki
         self.Kd = Kd
 
-    def getControl(self,val, tar,t):
+    def getControl(self,err,t):
         Kp=self.Kp
         Ki = self.Ki
         Kd = self.Kd
         t_last=self.t_last
         err_sum = self.err_sum
         err_last=self.err_last
-        #
 
         #delta time
         dt = t-t_last
-        #error
-        err = tar - val
 
-        #error sum, integral
+        # error sum, integral
         err_sum= err_sum + err*dt
-        #cut-off value
+        # cut-off value
         if Ki!=0:
             err_sum_cutoff=1/Ki*dt
         else:
@@ -41,16 +38,16 @@ class PID_controller:
         elif err_sum < -err_sum_cutoff:
             err_sum = -err_sum_cutoff
 
-        #error derivative
+        # error derivative
         if dt==0 :
             d_err=0
         else:
             d_err = (err - err_last)/dt
 
-        #output control
+        # output control
         y=Kp * err + Ki * err_sum + Kd * d_err
 
-        #output control cut-off
+        # output control cut-off
         if y > 1:
             y = 1
         elif y < -1:
