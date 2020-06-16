@@ -13,16 +13,12 @@ class PID_controller:
         self.Ki = Ki
         self.Kd = Kd
 
-    def getControl(self,err,t):
+    def getControl(self,err,dt):
         Kp=self.Kp
         Ki = self.Ki
         Kd = self.Kd
-        t_last=self.t_last
         err_sum = self.err_sum
         err_last=self.err_last
-
-        #delta time
-        dt = t-t_last
 
         # error sum, integral
         err_sum= err_sum + err*dt
@@ -55,6 +51,5 @@ class PID_controller:
 
         self.err_last = err_last
         self.err_sum = err_sum
-        self.t_last=t
 
         return y

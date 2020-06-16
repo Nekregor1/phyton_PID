@@ -1,18 +1,11 @@
 import graph as gr
 from PID_controller import PID_controller
-
+#PID controller test
 x=0
 vel=0
 ar=[]
 f=[]
-speed=[]
 t=[]
-dx_arr=[]
-dSum_arr=[]
-
-
-a=0
-
 dt=0.05
 timer=0.0
 controller=PID_controller(0.5,0.1,0.5)
@@ -26,7 +19,7 @@ for i in range(0, 200):
     timer=timer+dt
     #control
     dx=ar[i]-x
-    y=controller.getControl(dx,timer)
+    y=controller.getControl(dx,dt)
     a=20*y
     vel = vel +a*dt
     if vel > 10:
