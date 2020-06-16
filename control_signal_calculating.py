@@ -16,10 +16,10 @@ class SigCalc:
         self.Rmin = -410        #Максимальное смещение канала Yaw в отрицательную сторону сторону
         self.Hmin = -403        #Максимальное смещение канала Throttle в отрицательную сторону сторону
         
-        self.Vmax = 410            #Максимальное смещение канала Pitch в положительную сторону
-        self.Kmax = 410            #Максимальное смещение канала Roll в положительную сторону
-        self.Rmax = 410            #Максимальное смещение канала Yaw в положительную сторону
-        self.Hmax = 404            #Максимальное смещение канала Throttle в положительную сторону
+        self.Vmax = 410          #Максимальное смещение канала Pitch в положительную сторону
+        self.Kmax = 410          #Максимальное смещение канала Roll в положительную сторону
+        self.Rmax = 410          #Максимальное смещение канала Yaw в положительную сторону
+        self.Hmax = 404          #Максимальное смещение канала Throttle в положительную сторону
         
         self.Vmin_gr = 10        #Смещение хначения сигнала управления в области нулевой невязки по каналу Pitch
         self.Kmin_gr = 10        #Смещение хначения сигнала управления в области нулевой невязки по каналу Roll
@@ -59,10 +59,15 @@ class SigCalc:
 
         #Формирование сигналов в формате SBUS
         #Пороговая обработка(добавить пороговую обработку)
-        res_vi = int(self.KVU0 + vi)
-        res_hi = int(self.KHU0 + hi)
-        res_ki = int(self.KKU0 + ki)
-        res_ri = int(self.KRU0 + ri)
+        Kv = min(abs(self.Vmin), self.Vmax)
+        Kh = min(abs(self.Hmin), self.Hmax)
+        Kk = min(abs(self.Kmin), self.Kmax)
+        Kr = min(abs(self.Rmin), self.Rmax)
+
+        res_vi = int(self.KVU0 + Kv*vi)
+        res_hi = int(self.KHU0 + Kh*hi)
+        res_ki = int(self.KKU0 + Kk*ki)
+        res_ri = int(self.KRU0 + Kr*ri)
         
         return res_vi, res_hi, res_ki, res_ri
         
