@@ -1,3 +1,4 @@
+import time
 class PID_controller:
 
     def __init__(self,Kp,Ki,Kd):
@@ -13,7 +14,13 @@ class PID_controller:
         self.Ki = Ki
         self.Kd = Kd
 
-    def getControl(self,err,dt):
+    def getControl(self,err):
+        #time
+        t_last=self.t_last
+        t = time.time()
+        dt=t-t_last
+        print(dt)
+
         Kp=self.Kp
         Ki = self.Ki
         Kd = self.Kd
@@ -51,5 +58,6 @@ class PID_controller:
 
         self.err_last = err_last
         self.err_sum = err_sum
+        self.t_last=t
 
         return y
