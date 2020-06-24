@@ -41,17 +41,17 @@ class SigCalc:
 
 
     
-    def Sig_Calculate(self, dx, dy,delta_time):
+    def Sig_Calculate(self, dx, dy):
         #Вычисление сигнала по каналу Throttle для конмпенсации невязки по dy
-        hi = self.thr_control.getControl(dy, delta_time)
+        hi = self.thr_control.getControl(dy)
 
         #Вычисления сигналова по каналу Pitch
         #необходимый крен для требуемой скорости, нужно добавить входной параметр-скорость сближения
         vi = 123
-        #hi = self.thr_control.getControl(d_speed, delta_time)
+        #hi = self.thr_control.getControl(d_speed)
 
         #Вычисление сигнала по каналу Yaw 
-        ki = self.thr_control.getControl(dx, delta_time)
+        ki = self.thr_control.getControl(dx)
 
         # Вычисление сигнала по каналу Roll
         ri=0.4*ki#в идеале нужно сделать чтобы нос по касательной к траектории держался

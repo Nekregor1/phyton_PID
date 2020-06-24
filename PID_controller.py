@@ -19,7 +19,6 @@ class PID_controller:
         t_last=self.t_last
         t = time.time()
         dt=t-t_last
-        print(dt)
 
         Kp=self.Kp
         Ki = self.Ki
