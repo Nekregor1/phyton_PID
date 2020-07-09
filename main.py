@@ -6,31 +6,43 @@ x=0
 vel=0
 ar=[]
 f=[]
-t=[]
+t_graph=[]
+v_graph=[]
 dt=0.05
-timer=0.0
-controller=PID_controller(0.5,0.1,0.5)
+t=0
+t0=time.time();
+t_last=0
+v_last=0
+controller=PID_controller(0.5,0.1,0.1)
 
-for i in range(0, 200):
+for i in range(0, 1000):
     if i < 20:
         ar.append(0)
     else:
-        ar.append(10)
+        ar.append(5)
 
-    timer=timer+dt
+
+    #t = time.time()-t0
+    t = t+dt
+    #dt = t - t_last
     #control
     dx=ar[i]-x
-    time.sleep(0.015)
+
     y=controller.getControl(dx)
     a=20*y
     vel = vel +a*dt
     if vel > 10:
         vel = 10
     elif vel < -10:
-        vel = -10
+        vel = -1
 
-    x = x + vel * dt + a * dt * dt / 2
+    x = x + vel*dt + a*dt* dt/2
     f.append(x)
-    t.append(timer)
+    t_graph.append(t)
+    v_graph.append(vel)
+
+    t_last =t
+    time.sleep(0.01)
+    v_last=vel
 # end for
-gr.printgr(t,ar,f)
+gr.printgr(t_graph,ar,f)

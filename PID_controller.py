@@ -55,7 +55,7 @@ class PID_controller:
         elif y < -1:
             y = -1
 
-        self.err_last = err_last
+        self.err_last = err
         self.err_sum = err_sum
         self.t_last=t
 
